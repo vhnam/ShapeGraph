@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+.layout{
+  display: flex;
+  height: 100vh;
+}
+
+.SiteBarLeft{
+  background-color: darkseagreen;
+}
+
+.col-3{
+    width: 40%;
+}
+.mid{
+  width: 49vw;
+}
