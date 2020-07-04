@@ -1,0 +1,32 @@
+.container {
+  flex: 0 0 auto;
+  width: 20%;
+  background-color: #2e3030;
+  border-right: 0.0625rem solid #000;
+}
+
+.action {
+  padding: 1.5rem;
+  background-color: #454647;
+}
+
+.btnAdd {
+  width: 100%;
+  padding: 0.5rem 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #b7b8b9;
+  background-color: #757575;
+  border: none;
+  border-radius: 0.25rem;
+  outline: 0;
+  cursor: pointer;
+}
+
+.btnAdd:hover {
+  filter: brightness(0.8);
+}
+
+.btnAdd:active {
+  filter: brightness(0.65);
+}

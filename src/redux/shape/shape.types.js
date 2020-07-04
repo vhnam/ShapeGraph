@@ -1,7 +1,0 @@
-const ShapeTypes = {
-    ADD_RECTANGLE: 'ADD_RECTANGLE',
-    CHANGE_RECTANGLE: 'CHANGE_RECTANGE',
-    DELETE_RECTANGLE: 'DELETE_RECTANGLE'
-}
-
-export default ShapeTypes
