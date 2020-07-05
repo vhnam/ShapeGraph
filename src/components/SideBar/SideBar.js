@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 import {deleteRectangle} from '../../redux/actions/shape';
 import {getShapes} from '../../redux/selectors/shape';
 
+import getValue from '../../helpers/getValue';
+
 import styles from './SideBar.module.css';
 
-const SideBar = ({onAddReactanle}) => {
+const SideBar = ({onAddReactangle}) => {
   const dispatch = useDispatch();
 
   const shapes = useSelector(getShapes());
@@ -22,15 +24,25 @@ const SideBar = ({onAddReactanle}) => {
   return (
     <div className={styles.container}>
       <div className={styles.action}>
-        <button onClick={onAddReactanle} className={styles.btnAdd}>
+        <button onClick={onAddReactangle} className={styles.btnAdd}>
           &#43;
         </button>
       </div>
-      <ul>
-        {shapes.map((shape, id) => (
-          <li key={id}>
-            {shape.name}
-            <button onClick={handleDeleteRectangle.bind(null, shape)}>X</button>
+      <ul className={styles.list}>
+        {shapes.map((shape) => (
+          <li key={shape.id} className={styles.item}>
+            <span
+              className={styles.color}
+              style={{
+                backgroundColor: getValue(shape, 'fill'),
+              }}
+            />
+            <button
+              className={styles.btnRemove}
+              onClick={handleDeleteRectangle.bind(null, shape)}
+            >
+              &times;
+            </button>
           </li>
         ))}
       </ul>
@@ -39,7 +51,7 @@ const SideBar = ({onAddReactanle}) => {
 };
 
 SideBar.propTypes = {
-  onAddReactanle: PropTypes.func,
+  onAddReactangle: PropTypes.func,
 };
 
 export default SideBar;

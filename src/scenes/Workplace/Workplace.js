@@ -16,24 +16,18 @@ const Workplace = () => {
   const shapes = useSelector(getShapes());
 
   const [selectedShapeId, setSelectedShapeId] = useState();
-  const [selectedXShape, setSelectedXShape] = useState('');
-  const [selectedYShape, setSelectedYShape] = useState('');
-  const [selectedWShape, setSelectedWShape] = useState('');
-  const [selectedHShape, setSelectedHShape] = useState('');
+  const [selectedShape, setSelectedShape] = useState();
 
   const checkDeselect = useCallback((e) => {
     const clickedOnEmpty = e.target === e.target.getStage();
 
     if (clickedOnEmpty) {
       setSelectedShapeId(undefined);
-      setSelectedXShape('');
-      setSelectedYShape('');
-      setSelectedWShape('');
-      setSelectedHShape('');
+      setSelectedShape(undefined);
     }
   }, []);
 
-  const handleAddReactanle = useCallback(() => {
+  const handleAddReactangle = useCallback(() => {
     dispatch(addRectangle());
   }, [dispatch]);
 
@@ -44,10 +38,13 @@ const Workplace = () => {
   const handleChangeRectangle = useCallback(
     (attrs) => {
       dispatch(changeRectangle(selectedShapeId, attrs));
-      setSelectedXShape(parseInt(attrs.x));
-      setSelectedYShape(parseInt(attrs.y));
-      setSelectedWShape(parseInt(attrs.width));
-      setSelectedHShape(parseInt(attrs.height));
+      setSelectedShape({
+        ...attrs,
+        x: parseInt(attrs.x),
+        y: parseInt(attrs.y),
+        width: parseInt(attrs.width),
+        height: parseInt(attrs.height),
+      });
     },
     [dispatch, selectedShapeId],
   );
@@ -57,10 +54,13 @@ const Workplace = () => {
       const shape = shapes.find((s) => s.id === selectedShapeId);
 
       if (shape) {
-        setSelectedXShape(parseInt(shape.x));
-        setSelectedYShape(parseInt(shape.y));
-        setSelectedWShape(parseInt(shape.width));
-        setSelectedHShape(parseInt(shape.height));
+        setSelectedShape({
+          ...shape,
+          x: parseInt(shape.x),
+          y: parseInt(shape.y),
+          width: parseInt(shape.width),
+          height: parseInt(shape.height),
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,7 +68,7 @@ const Workplace = () => {
 
   return (
     <div className={styles.container}>
-      <SideBar onAddReactanle={handleAddReactanle} />
+      <SideBar onAddReactangle={handleAddReactangle} />
 
       <main className={styles.main}>
         <Stage
@@ -91,12 +91,7 @@ const Workplace = () => {
         </Stage>
       </main>
 
-      <Figures
-        x={selectedXShape}
-        y={selectedYShape}
-        w={selectedWShape}
-        h={selectedHShape}
-      />
+      <Figures shape={selectedShape} />
     </div>
   );
 };

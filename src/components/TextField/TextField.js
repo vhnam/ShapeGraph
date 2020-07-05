@@ -6,7 +6,7 @@ import styles from './TextField.module.css';
 const TextField = ({label, ...others}) => (
   <div className={styles.container}>
     <input className={styles.input} {...others} />
-    <span className={styles.label}>{label}</span>
+    {label && <span className={styles.label}>{label}</span>}
   </div>
 );
 

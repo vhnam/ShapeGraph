@@ -1,32 +1,74 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
+
+import getValue from '../../helpers/getValue';
 
 import TextField from '../TextField';
 
 import styles from './Figures.module.css';
 
-const Figures = ({x, y, w, h}) => (
-  <div className={styles.container}>
-    <div className={styles.wrapper}>
-      <TextField label="X" defaultValue={x.toString()} disabled={true} />
+const Figures = ({shape}) => {
+  const getValueFromShape = useCallback(
+    (key) => {
+      return getValue(shape, key);
+    },
+    [shape],
+  );
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <TextField
+          label="X"
+          defaultValue={getValueFromShape('x')}
+          disabled={true}
+        />
+      </div>
+      <div className={styles.wrapper}>
+        <TextField
+          label="Y"
+          defaultValue={getValueFromShape('y')}
+          disabled={true}
+        />
+      </div>
+      <div className={styles.wrapper}>
+        <TextField
+          label="W"
+          defaultValue={getValueFromShape('width')}
+          disabled={true}
+        />
+      </div>
+      <div className={styles.wrapper}>
+        <TextField
+          label="H"
+          defaultValue={getValueFromShape('height')}
+          disabled={true}
+        />
+      </div>
+      <div className={styles.wrapper}>
+        <div className="row">
+          <div className="col-3">
+            <div
+              className={styles.color}
+              style={{
+                backgroundColor: getValueFromShape('fill'),
+              }}
+            />
+          </div>
+          <div className="col-9">
+            <TextField
+              defaultValue={getValueFromShape('fill')}
+              disabled={true}
+            />
+          </div>
+        </div>
+      </div>
     </div>
-    <div className={styles.wrapper}>
-      <TextField label="Y" defaultValue={y.toString()} disabled={true} />
-    </div>
-    <div className={styles.wrapper}>
-      <TextField label="W" defaultValue={w.toString()} disabled={true} />
-    </div>
-    <div className={styles.wrapper}>
-      <TextField label="H" defaultValue={h.toString()} disabled={true} />
-    </div>
-  </div>
-);
+  );
+};
 
 Figures.propTypes = {
-  x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  w: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  h: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  shape: PropTypes.object,
 };
 
 export default Figures;
